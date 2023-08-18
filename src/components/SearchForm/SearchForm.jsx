@@ -25,7 +25,12 @@ const SearchForm = ({ value, onSearch }) => {
         console.error(error);
       }
     };
-    fetchMoviesByNameData();
+
+    if (query) {
+      fetchMoviesByNameData();
+    } else {
+      setSearchQuery([]);
+    }
   }, [query]);
 
   return (
