@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FormContainer, Input } from './SearchFormStyles';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 import { searchMoviesByName } from 'Api/Api';
 
-const SearchForm = ({ value, onSearch }) => {
+const SearchForm = ({ onSearch }) => {
   const [query, setQuery] = useState('');
-  const [searchQuery, setSearchQuery] = useState([null]);
+  const [searchQuery, setSearchQuery] = useState([]);
 
   const handleQueryChange = e => {
     const newQuery = e.target.value;
@@ -41,6 +41,13 @@ const SearchForm = ({ value, onSearch }) => {
         value={query}
         onChange={handleQueryChange}
       />
+      {searchQuery.length > 0 && (
+        <ul>
+          {searchQuery.map(movie => (
+            <li key={movie.id}>{movie.title}</li>
+          ))}
+        </ul>
+      )}
     </FormContainer>
   );
 };
