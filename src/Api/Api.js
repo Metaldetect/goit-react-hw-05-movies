@@ -21,7 +21,7 @@ export const searchMoviesByName = async movieName => {
   const response = await axios.get(
     `${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${movieName}&page=1&include_adult=false`
   );
-  const products = response.data;
+  const products = response.data.results;
   return products;
 };
 
