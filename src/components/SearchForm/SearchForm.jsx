@@ -1,37 +1,27 @@
-import React, { useState } from 'react';
-import { FormContainer, Input } from './SearchFormStyles';
+import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'components/Button';
+import { FormContainer, Input, Button } from './SearchFormStyles';
 
-const SearchForm = ({ onSubmit }) => {
-  const [query, setQuery] = useState('');
-
-  const handleQueryChange = e => {
-    const newQuery = e.target.value;
-    setQuery(newQuery);
-  };
-
+const SearchMovie = ({ onSubmit }) => {
   const handleSubmit = e => {
     e.preventDefault();
+    
+    const query = e.target.elements.query.value;
+
     onSubmit(query);
-    setQuery('');
+    e.target.reset();
   };
 
   return (
     <FormContainer onSubmit={handleSubmit}>
-      <Input
-        type="text"
-        placeholder="Search for movies..."
-        value={query}
-        onChange={handleQueryChange}
-      />
+      <Input type="text" placeholder="Enter movie name" name="query" />
       <Button type="submit">Search</Button>
     </FormContainer>
   );
 };
 
-SearchForm.propTypes = {
+SearchMovie.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default SearchForm;
+export default SearchMovie;

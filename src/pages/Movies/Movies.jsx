@@ -1,63 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
-import SearchForm from 'components/SearchForm';
 import { searchMoviesByName } from 'Api/Api';
+import SearchMovie from 'components/SearchForm';
 import {
   ProductListContainer,
   TrendingHeading,
-  List,
-  Item,
   StyledLink,
 } from 'components/MoviesList/MoviesListStyles';
 
-const Movies = () => {
+const MoviesList = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [error, setError] = useState(null);
   const location = useLocation();
+  const query = searchParams.get('query') || '';
 
   useEffect(() => {
-    const movieName = searchParams.get('query') || '';
-
-    const search = async query => {
+    const fetchMovies = async () => {
       try {
-        const movies = await searchMoviesByName(query);
-        if (movies.length === 0) {
-          setError('No movies found.');
+        const results = await searchMoviesByName(query);
+        
+        if (results.length === 0) {
           setMovies([]);
         } else {
-          setError(null);
-          setMovies(movies);
+          setMovies(results);
         }
       } catch (error) {
-        console.error(error);
-        setError('An error occurred while fetching movies.');
+        console.error('Error fetching movies:', error);
       }
     };
 
-    search(movieName);
-  }, [searchParams]);
+    fetchMovies();
+  }, [query]);
 
-  const handleSubmit = query => {
+  const handleSearch = query => {
     setSearchParams({ query });
   };
 
   return (
     <ProductListContainer>
       <TrendingHeading>Movies</TrendingHeading>
-      <SearchForm onSubmit={handleSubmit} searchResult={movies} />
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <List>
-        {movies.map(movie => (
-          <Item key={movie.id}>
-            <StyledLink to={`/movies/${movie.id}`} state={{ from: location }}>
-              {movie.title}
-            </StyledLink>
-          </Item>
-        ))}
-      </List>
+      <SearchMovie onSubmit={handleSearch} />
+      {movies.length === 0 ? (
+        <p>No movies found for the search query.</p>
+      ) : (
+        movies.map(movie => (
+          <StyledLink
+            key={movie.id}
+            to={`/movies/${movie.id}`}
+            state={{ from: location }}
+          >
+            {movie.title}
+          </StyledLink>
+        ))
+      )}
     </ProductListContainer>
   );
 };
 
-export default Movies;
+export default MoviesList;
