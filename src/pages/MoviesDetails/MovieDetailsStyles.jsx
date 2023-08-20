@@ -8,6 +8,11 @@ export const MovieDetailsContainer = styled.div`
   background-color: #f0f0f0;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const MovieDetailsHeader = styled.div`
@@ -42,12 +47,17 @@ export const MovieImageContainer = styled.div`
   text-align: center;
   margin: 20px 0;
 `;
-
 export const MovieImage = styled.img`
   max-width: 100%;
   height: auto;
-`;
 
+  @media (min-width: 320px) and (max-width: 767px) {
+    max-width: 80vw;
+  }
+  @media (min-width: 768px) and (max-width: 1024px) {
+    max-width: 50vw;
+  }
+`;
 export const ProductionCompanies = styled.div`
   display: flex;
   flex-wrap: wrap;
