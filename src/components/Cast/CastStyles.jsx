@@ -31,3 +31,13 @@ export const ActorItem = styled.li`
     margin-top: 10px;
   }
 `;
+
+export const ActorInfo = styled.div`
+  background-color: #f0f0f0;
+  padding: 10px;
+`;
+
+export const ActorName = styled.h3`
+  font-size: 18px;
+  margin-top: 5px;
+`;

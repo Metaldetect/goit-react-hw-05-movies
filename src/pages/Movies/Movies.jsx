@@ -1,47 +1,57 @@
-import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { searchMoviesByName } from 'Api/Api';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import SearchForm from 'components/SearchForm';
-import ProductList from 'components/MoviesList';
+import { searchMoviesByName } from 'Api/Api';
+import {
+  ProductListContainer,
+  TrendingHeading,
+  List,
+  Item,
+  StyledLink,
+} from 'components/MoviesList/MoviesListStyles';
 
 const Movies = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [searchResult, setSearchResult] = useState([]);
-  const [searchParams] = useSearchParams();
-
-  const movieName = searchParams.get('query') || '';
-
-  const updateQueryString = newQuery => {
-    searchParams.set('query', newQuery);
-  };
+  const [movies, setMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
 
   useEffect(() => {
-    const search = async () => {
+    const movieName = searchParams.get('query') || '';
+
+    const search = async query => {
       try {
-        setIsLoading(true);
-        const movies = await searchMoviesByName(movieName);
-        setSearchResult(movies);
+        const movies = await searchMoviesByName(query);
+        if (movies.length === 0) {
+          // setMovies([]);
+        } else {
+          setMovies(movies);
+        }
       } catch (error) {
         console.error(error);
-      } finally {
-        setIsLoading(false);
       }
     };
-    search();
-  }, [movieName, searchParams]);
+
+    search(movieName);
+  }, [searchParams]);
+
+  const handleSubmit = query => {
+    setSearchParams({ query });
+  };
 
   return (
-    <div>
-      <h2>Movies</h2>
-      <SearchForm initialValue={movieName} onSearch={updateQueryString} />
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : searchResult.length === 0 && movieName ? (
-        <h2> Nothing found</h2>
-      ) : (
-        <ProductList products={searchResult} />
-      )}
-    </div>
+    <ProductListContainer>
+      <TrendingHeading>Movies</TrendingHeading>
+      <SearchForm onSubmit={handleSubmit} searchResult={movies} />
+      <List>
+        {movies.map(movie => (
+          <Item key={movie.id}>
+            <StyledLink to={`/movies/${movie.id}`} state={{ from: location }}>
+              {movie.title}
+            </StyledLink>
+          </Item>
+        ))}
+      </List>
+    </ProductListContainer>
   );
 };
 
