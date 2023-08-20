@@ -1,19 +1,21 @@
 import styled from '@emotion/styled';
+import Button from 'components/Button';
 
 export const MovieDetailsContainer = styled.div`
-  background-image: ${props =>
-    props.backdrop
-      ? `url(https://image.tmdb.org/t/p/original${props.backdrop})`
-      : 'none'};
-  background-size: cover;
-  background-position: center;
+  display: flex;
+  margin-top: 50px;
   padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
 
 export const MovieDetailsHeader = styled.div`
-  color: white;
+  color: black;
   text-align: left;
   margin-bottom: 20px;
+  margin-left: 30px;
+  margin-top: 20px;
 
   h1 {
     font-size: 28px;
@@ -56,6 +58,20 @@ export const ProductionCompanies = styled.div`
     max-height: 50px;
     max-width: 200px;
     margin-right: 30px;
-    margin-top: 10px;
   }
+`;
+export const Companie = styled.div``;
+
+export const AdditionalInfoContainer = styled.div`
+  display: flex;
+
+  gap: 20px;
+`;
+
+export const AdditionalInfoButton = styled(Button)``;
+
+export const Divider = styled.hr`
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid #ccc;
 `;
