@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 
-export const CreditsContainer = styled.div`
+export const ActorsContainer = styled.div`
   padding: 20px;
 `;
 
-export const CreditsHeading = styled.h2`
+export const ActorsHeading = styled.h2`
   font-size: 24px;
   margin-bottom: 20px;
 `;

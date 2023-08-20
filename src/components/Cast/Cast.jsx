@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCast } from 'Api/Api';
 import {
-  CreditsContainer,
-  CreditsHeading,
+  ActorsContainer,
+  ActorsHeading,
   ActorList,
   ActorItem,
   ActorInfo,
@@ -27,10 +27,10 @@ const Cast = () => {
   }, [movieId]);
 
   return (
-    <CreditsContainer>
+    <ActorsContainer>
       {cast.length !== 0 && (
         <>
-          <CreditsHeading>Cast</CreditsHeading>
+          <ActorsHeading>Cast</ActorsHeading>
           <ActorList>
             {cast.map(actor => (
               <ActorItem key={actor.id}>
@@ -48,6 +48,7 @@ const Cast = () => {
                 <ActorInfo>
                   <ActorName>{actor.name}</ActorName>
                   <p>Character: {actor.character}</p>
+                  <p>Popularity: {actor.popularity}</p>
                 </ActorInfo>
               </ActorItem>
             ))}
@@ -57,7 +58,7 @@ const Cast = () => {
       {cast.length === 0 && (
         <div>No cast members available for this movie.</div>
       )}
-    </CreditsContainer>
+    </ActorsContainer>
   );
 };
 
