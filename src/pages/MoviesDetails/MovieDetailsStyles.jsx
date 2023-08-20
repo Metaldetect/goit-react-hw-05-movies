@@ -64,7 +64,6 @@ export const Companie = styled.div``;
 
 export const AdditionalInfoContainer = styled.div`
   display: flex;
-
   gap: 20px;
 `;
 
