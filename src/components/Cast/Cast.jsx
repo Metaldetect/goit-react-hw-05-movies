@@ -29,8 +29,8 @@ const Cast = () => {
   return (
     <CreditsContainer>
       {cast.length !== 0 && (
-        <div>
-          <CreditsHeading>{movieId}</CreditsHeading>
+        <>
+          <CreditsHeading>Cast</CreditsHeading>
           <ActorList>
             {cast.map(actor => (
               <ActorItem key={actor.id}>
@@ -52,7 +52,7 @@ const Cast = () => {
               </ActorItem>
             ))}
           </ActorList>
-        </div>
+        </>
       )}
       {cast.length === 0 && (
         <div>No cast members available for this movie.</div>

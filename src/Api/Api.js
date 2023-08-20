@@ -37,7 +37,7 @@ export const fetchMovieCast = async movieId => {
   const response = await axios.get(
     `${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`
   );
-  const products = response.data;
+  const products = response.data.cast;
   return products;
 };
 
@@ -45,6 +45,6 @@ export const fetchMovieReviews = async movieId => {
   const response = await axios.get(
     `${BASE_URL}/movie/${movieId}}/reviews?api_key=${API_KEY}&language=en-US&page=1`
   );
-  const products = response.data;
+  const products = response.data.review;
   return products;
 };
