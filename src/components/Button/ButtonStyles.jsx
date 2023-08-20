@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 
 export const Btn = styled.button`
-  width: 200px;
-  height: 50px;
-  margin: 0 auto;
-  padding: 8px 16px;
+  width: 70px;
+  height: 30px;
+  margin-top: 20px;
+
   border-radius: 2px;
   background-color: #3f51b5;
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
