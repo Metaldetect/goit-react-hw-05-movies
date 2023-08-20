@@ -13,6 +13,7 @@ import {
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [error, setError] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -22,12 +23,15 @@ const Movies = () => {
       try {
         const movies = await searchMoviesByName(query);
         if (movies.length === 0) {
-          // setMovies([]);
+          setError('No movies found.');
+          setMovies([]);
         } else {
+          setError(null);
           setMovies(movies);
         }
       } catch (error) {
         console.error(error);
+        setError('An error occurred while fetching movies.');
       }
     };
 
@@ -42,6 +46,7 @@ const Movies = () => {
     <ProductListContainer>
       <TrendingHeading>Movies</TrendingHeading>
       <SearchForm onSubmit={handleSubmit} searchResult={movies} />
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <List>
         {movies.map(movie => (
           <Item key={movie.id}>
