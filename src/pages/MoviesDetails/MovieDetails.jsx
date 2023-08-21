@@ -22,6 +22,7 @@ const MovieDetails = () => {
   const location = useLocation();
   const [movieDetails, setMovieDetails] = useState(null);
   const backLinkRef = useRef(location.state?.from || '/');
+  const userScorePercentage = Math.round(movieDetails.vote_average * 10);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -39,8 +40,6 @@ const MovieDetails = () => {
   if (!movieDetails) {
     return <LoadingSpinner />;
   }
-
-  const userScorePercentage = Math.round(movieDetails.vote_average * 10);
 
   return (
     <>
