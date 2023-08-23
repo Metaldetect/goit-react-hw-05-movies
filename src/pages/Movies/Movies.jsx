@@ -7,10 +7,13 @@ import {
   TrendingHeading,
   StyledLink,
 } from 'components/MoviesList/MoviesListStyles';
+import LoadingSpinner from 'components/Loader/Loader';
 
 const MoviesList = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [loading, setLoading] = useState(false);
+
   const location = useLocation();
   const query = searchParams.get('query') || '';
 
@@ -24,6 +27,8 @@ const MoviesList = () => {
         } else {
           setMovies(results);
         }
+
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching movies:', error);
       }
@@ -32,7 +37,8 @@ const MoviesList = () => {
     fetchMovies();
   }, [query]);
 
-  const handleSearchChange = query => {
+  const handleSearchChange = async query => {
+    setLoading(true);
     setSearchParams({ query });
   };
 
@@ -40,7 +46,9 @@ const MoviesList = () => {
     <ProductListContainer>
       <TrendingHeading>Movies</TrendingHeading>
       <SearchMovie onSearch={handleSearchChange} />
-      {movies.length === 0 ? (
+      {loading ? (
+        <LoadingSpinner />
+      ) : movies.length === 0 ? (
         <p>No movies found for the search query.</p>
       ) : (
         movies.map(movie => (
