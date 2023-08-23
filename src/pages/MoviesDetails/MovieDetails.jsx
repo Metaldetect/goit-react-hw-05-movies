@@ -22,7 +22,6 @@ const MovieDetails = () => {
   const location = useLocation();
   const [movieDetails, setMovieDetails] = useState(null);
   const backLinkRef = useRef(location.state?.from || '/');
-  const userScorePercentage = Math.round(movieDetails.vote_average * 10);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -55,7 +54,7 @@ const MovieDetails = () => {
         </MovieImageContainer>
         <MovieDetailsHeader>
           <h1>{movieDetails.title}</h1>
-          <p>User score: {userScorePercentage}%</p>
+          <p>User score: {movieDetails.popularity}%</p>
           <h2>Overview</h2>
           <p>{movieDetails.overview}</p>
           <h2>Genres</h2>
