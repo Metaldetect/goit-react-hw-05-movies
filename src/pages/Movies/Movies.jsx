@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { searchMoviesByName } from 'Api/Api';
-import SearchMovie from 'components/SearchForm';
+import SearchMovie from 'components/SearchForm/SearchForm';
 import {
   ProductListContainer,
   TrendingHeading,
@@ -18,7 +18,7 @@ const MoviesList = () => {
     const fetchMovies = async () => {
       try {
         const results = await searchMoviesByName(query);
-        
+
         if (results.length === 0) {
           setMovies([]);
         } else {
@@ -32,14 +32,14 @@ const MoviesList = () => {
     fetchMovies();
   }, [query]);
 
-  const handleSearch = query => {
+  const handleSearchChange = query => {
     setSearchParams({ query });
   };
 
   return (
     <ProductListContainer>
       <TrendingHeading>Movies</TrendingHeading>
-      <SearchMovie onSubmit={handleSearch} />
+      <SearchMovie onSearch={handleSearchChange} />
       {movies.length === 0 ? (
         <p>No movies found for the search query.</p>
       ) : (
