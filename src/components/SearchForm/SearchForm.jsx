@@ -17,6 +17,7 @@ const SearchMovie = ({ onSearch }) => {
   return (
     <FormContainer onSubmit={handleSubmit}>
       <Input
+        autoFocus
         type="text"
         placeholder="Enter movie name"
         name="query"
