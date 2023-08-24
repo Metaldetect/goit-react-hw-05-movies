@@ -18,23 +18,23 @@ const MoviesList = () => {
   const query = searchParams.get('query') || '';
 
   useEffect(() => {
-    const fetchMovies = async () => {
+    const fetchMovies = async query => {
+      setLoading(true);
+      setSearchParams({ query });
+
       try {
         const results = await searchMoviesByName(query);
 
-        if (results.length === 0) {
-          setMovies([]);
-        } else {
-          setMovies(results);
-        }
-
+        setMovies(results);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching movies:', error);
+        setMovies([]);
+        setLoading(false);
       }
     };
 
-    fetchMovies();
+    fetchMovies(query);
   }, [query]);
 
   const handleSearchChange = async query => {
@@ -48,8 +48,6 @@ const MoviesList = () => {
       <SearchMovie onSearch={handleSearchChange} />
       {loading ? (
         <LoadingSpinner />
-      ) : movies.length === 0 ? (
-        <p>No movies found for the search query.</p>
       ) : (
         movies.map(movie => (
           <StyledLink

@@ -8,10 +8,11 @@ const SearchMovie = ({ onSearch }) => {
   const handleSearchChange = e => {
     setSearchTerm(e.target.value);
   };
+
   const handleSubmit = e => {
     e.preventDefault();
     onSearch(searchTerm);
-    e.target.reset();
+    setSearchTerm('');
   };
 
   return (
