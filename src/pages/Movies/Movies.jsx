@@ -35,7 +35,7 @@ const MoviesList = () => {
     };
 
     fetchMovies(query);
-  }, [query]);
+  }, [query, setSearchParams]);
 
   const handleSearchChange = async query => {
     setLoading(true);
