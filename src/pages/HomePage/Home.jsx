@@ -32,7 +32,7 @@ const Home = () => {
       ) : error ? (
         <p>Error loading data</p>
       ) : (
-        <MoviesList trendMovies={trendMovies} />
+        <MoviesList movies={trendMovies} />
       )}
     </>
   );

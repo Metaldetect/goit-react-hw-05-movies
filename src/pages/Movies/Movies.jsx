@@ -44,7 +44,7 @@ const MovieList = () => {
     <>
       <h2>Search movies</h2>
       <SearchMovie onSearch={handleSearchChange} />
-      {loading ? <LoadingSpinner /> : <MoviesList trendMovies={movies} />}
+      {loading ? <LoadingSpinner /> : <MoviesList movies={movies} />}
     </>
   );
 };
