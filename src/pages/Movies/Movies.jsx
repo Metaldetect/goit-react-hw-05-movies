@@ -4,10 +4,6 @@ import { searchMoviesByName } from 'Api/Api';
 import SearchMovie from 'components/SearchForm/SearchForm';
 import MoviesList from 'components/MoviesList';
 
-import {
-  ProductListContainer,
-  TrendingHeading,
-} from 'components/MoviesList/MoviesListStyles';
 import LoadingSpinner from 'components/Loader/Loader';
 
 const MovieList = () => {
