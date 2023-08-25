@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { searchMoviesByName } from 'Api/Api';
 import SearchMovie from 'components/SearchForm/SearchForm';
+import MoviesList from 'components/MoviesList';
+
 import {
   ProductListContainer,
   TrendingHeading,
-  StyledLink,
 } from 'components/MoviesList/MoviesListStyles';
 import LoadingSpinner from 'components/Loader/Loader';
 
-const MoviesList = () => {
+const MovieList = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
 
-  const location = useLocation();
-  const query = searchParams.get('query') || '';
+  const query = searchParams.get('query');
 
   useEffect(() => {
+    if (!query) {
+      return;
+    }
+
     const fetchMovies = async query => {
       setLoading(true);
-      setSearchParams({ query });
 
       try {
         const results = await searchMoviesByName(query);
@@ -35,32 +38,19 @@ const MoviesList = () => {
     };
 
     fetchMovies(query);
-  }, [query, setSearchParams]);
+  }, [query]);
 
   const handleSearchChange = async query => {
-    setLoading(true);
     setSearchParams({ query });
   };
 
   return (
-    <ProductListContainer>
-      <TrendingHeading>Movies</TrendingHeading>
+    <>
+      <h2>Search movies</h2>
       <SearchMovie onSearch={handleSearchChange} />
-      {loading ? (
-        <LoadingSpinner />
-      ) : (
-        movies.map(movie => (
-          <StyledLink
-            key={movie.id}
-            to={`/movies/${movie.id}`}
-            state={{ from: location }}
-          >
-            {movie.title}
-          </StyledLink>
-        ))
-      )}
-    </ProductListContainer>
+      {loading ? <LoadingSpinner /> : <MoviesList trendMovies={movies} />}
+    </>
   );
 };
 
-export default MoviesList;
+export default MovieList;

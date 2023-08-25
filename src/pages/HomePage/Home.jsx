@@ -25,6 +25,8 @@ const Home = () => {
 
   return (
     <>
+      <h2>Trending Movies</h2>
+
       {isLoading ? (
         <LoadingSpinner />
       ) : error ? (
